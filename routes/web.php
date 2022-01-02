@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +22,7 @@ Route::get('/', function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('barang', BarangController::class);
+Route::get('getBarang', [BarangController::class, 'getBarang'])->name('data.barang');
+Route::resource('stock', StockController::class);
+Route::get('getstock', [StockController::class, 'getstock'])->name('data.stock');
