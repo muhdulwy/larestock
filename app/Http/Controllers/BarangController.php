@@ -24,14 +24,13 @@ class BarangController extends Controller
 
     public function index(Request $request)
     {
-        if($request->Barangi){
-            $Barangi = '%' . $request->Barangi . '%';
-            $barang = Barang::where('nama','like', $Barangi)
+        if($request->cari){
+            $cari = '%' . $request->cari . '%';
+            $barang = Barang::where('nama','like', $cari)
                 ->paginate(10);
         } else {
             $barang = Barang::latest()->paginate(10);
         }
-
         return view ('barang.index',compact('barang'))->with('i',(request()->input('page', 1)-1)* 10);
     }
     /**

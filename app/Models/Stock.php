@@ -16,11 +16,11 @@ class Stock extends Model
         'status',
         'jumlah',
         'tgl_order',
-        'barang_id'
+        'barang_id',
         
     ];
     
-    public function barangs()
+    public function barang()
     {
         return $this->belongsTo(Barang::class);
     }

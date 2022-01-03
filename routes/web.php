@@ -22,7 +22,10 @@ Route::get('/', function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('barang', BarangController::class);
-Route::get('getBarang', [BarangController::class, 'getBarang'])->name('data.barang');
-Route::resource('stock', StockController::class);
-Route::get('getstock', [StockController::class, 'getstock'])->name('data.stock');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('barang', BarangController::class);
+    Route::get('getBarang', [BarangController::class, 'getBarang'])->name('data.barang');
+    Route::resource('stock', StockController::class);
+    Route::get('getStock', [StockController::class, 'getStock'])->name('data.stock');
+});
