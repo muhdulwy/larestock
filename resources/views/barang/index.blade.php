@@ -25,6 +25,8 @@
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data: 'nama', name: 'nama'},
+              {data: 'status', name: 'status'},
+              {data: 'jumlah', name: 'jumlah'},
               {
                   data: 'action', 
                   name: 'action', 
@@ -91,6 +93,8 @@
                 <tr>
                     <th width="20px" class="text-center">No</th>
                     <th>Nama Barang</th>
+                    <th>Transaksi</th>
+                    <th>Jumlah</th>
                     <th>Action</th>
                 </tr>
             </thead>

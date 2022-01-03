@@ -33,7 +33,6 @@ class StockController extends Controller
             $stock = Stock::where('status','like', $cari)
                 ->orWhere('tgl_order','like', $cari)
                 ->orWhere('jumlah','like', $cari)
-                // ->orWhere('barangs->nama','like', $cari)
                 ->paginate(10);
         } else {
             $stock = Stock::latest()->paginate(10);

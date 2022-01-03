@@ -10,14 +10,30 @@ class BarangController extends Controller
 {
     public function getBarang(Request $request) {
         if ($request->ajax()) {
-            $data = Barang::latest()->get();
+            $data = Barang::with('stocks')->latest()->get();
             return DataTables::of($data)
             ->addIndexColumn()->addColumn('action', function($row){
                 $actionBtn = '<a class="btn btn-info btn-sm" href="' . route('barang.show',$row->id) . '">Show</a>
                 <a href="' . route('barang.edit',$row->id) . '" class="edit btn btn-success btn-sm">Edit</a>
                 <button class="btn btn-danger btn-sm btn-delete" data-remote="' . route('barang.destroy',$row->id) . '">Delete</button>';
                 return $actionBtn;
-            })->rawColumns(['action'])
+            })->addColumn('status', function ($row){
+                if (!empty($row->stocks)) {
+                    return $row->stocks->map(function($st){
+                        return $st->status;
+                    })->implode('<br>');
+                }
+
+                return null;
+            })->addColumn('jumlah', function ($row){
+                if (!empty($row->stocks)) {
+                    return $row->stocks->map(function($st){
+                        return $st->jumlah;
+                    })->implode('<br>');
+                }
+
+                return null;
+            })->rawColumns(['action', 'status', 'jumlah'])
             ->make(true);
         }
     }
@@ -67,7 +83,15 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        return view('barang.show',compact( 'barang'));
+        $barang->load('stocks');
+        $barang->status= $barang->stocks->map(function($st){
+            return $st->status;
+        })->implode(', ');
+        $barang->jumlah= $barang->stocks->map(function($st){
+            return $st->jumlah;
+        })->implode(', ');
+
+        return view('barang.show', compact('barang'));
     }
 
     /**

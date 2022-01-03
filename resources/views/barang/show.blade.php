@@ -19,11 +19,16 @@
                 {{ $barang->nama }}
             </div>
         </div>
-        {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Status Stock:</strong>
-                {{ $barang->mobil }}
+                {{ $barang->status }}
             </div>
-        </div> --}}
+        </div>
+        <div class="form-group">
+            <strong>Status Stock:</strong>
+            {{ $barang->jumlah }}
+        </div>
+    </div>
     </div>
 @endsection
